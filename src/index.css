@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #f05929;
+  --primary-hover: #d24e24;
+  --bg-dark: #0a192f;
+  --bg-card: rgba(17, 34, 64, 0.7);
+  --text-main: #e6f1ff;
+  --text-slate: #8892b0;
+  --border-glass: rgba(255, 255, 255, 0.1);
+  --shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(240, 89, 41, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(100, 255, 218, 0.03) 0%, transparent 40%);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 20px;
+}
+
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #fff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: var(--text-slate);
+  font-weight: 500;
+}
+
+.input-group input, .input-group select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-search {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 52px;
+  align-self: flex-end;
+}
+
+.btn-search:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(240, 89, 41, 0.4);
+}
+
+.results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flight-card {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 1fr 150px;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cia-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.time-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.time {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.airport {
+  font-size: 14px;
+  color: var(--text-slate);
+}
+
+.duration-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.line {
+  height: 2px;
+  width: 60%;
+  background: var(--text-slate);
+  position: relative;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: -3px;
+  border: 4px solid transparent;
+  border-left-color: var(--text-slate);
+}
+
+.price-section {
+  text-align: right;
+}
+
+.currency {
+  font-size: 14px;
+  color: var(--text-slate);
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .flight-card {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  .price-section {
+    grid-column: span 2;
+    text-align: center;
+  }
+}
