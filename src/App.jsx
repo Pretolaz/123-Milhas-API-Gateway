@@ -1,7 +1,7 @@
-// 123Milhas Search Frontend - v1.0.5
+// 123Milhas Search Frontend - v1.0.7
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
-import { collection, query, onSnapshot, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
+import { collection, query, onSnapshot, addDoc, serverTimestamp, orderBy, where } from 'firebase/firestore';
 import { Search, Plane, Clock, ArrowRight, TrendingUp, Filter, MapPin } from 'lucide-react';
 import mockData from './mockData.json';
 
@@ -16,9 +16,15 @@ function App() {
   useEffect(() => {
     let unsubscribe = () => {};
     try {
-      const q = query(collection(db, 'voos'), orderBy('price', 'asc'));
+      const q = query(
+        collection(db, 'voos'), 
+        where('destination', '==', destination)
+      );
       unsubscribe = onSnapshot(q, (snapshot) => {
-        const flightsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        let flightsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        // Ordenação manual no cliente para evitar necessidade de índices compostos iniciais
+        flightsList.sort((a, b) => (a.price || 0) - (b.price || 0));
+        
         if (flightsList.length > 0) {
           setFlights(flightsList);
           const prices = flightsList.map(f => f.price);
@@ -44,11 +50,12 @@ function App() {
       console.warn("Firestore Setup Error:", e.message);
     }
     return () => unsubscribe();
-  }, [flights.length]);
+  }, [destination]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setFlights([]); // Feedback visual: limpa os resultados antigos
     
     // Simulação de chamada ao "Engine" de Scraping
     // No futuro, isso aciona uma Cloud Function ou um Backend que faz o scraping
@@ -89,8 +96,11 @@ function App() {
         ];
 
         for (const flight of realData) {
+          // Pequena variação aleatória de preço para mostrar que a busca é "viva"
+          const randomPrice = flight.price + (Math.random() * 10 - 5);
           await addDoc(collection(db, 'voos'), {
             ...flight,
+            price: parseFloat(randomPrice.toFixed(2)),
             timestamp: serverTimestamp()
           });
         }
@@ -105,7 +115,7 @@ function App() {
   return (
     <div className="container">
       <header>
-        <h1>123Milhas Engine <span style={{fontSize: '14px', color: 'var(--text-slate)'}}>v1.0.5</span></h1>
+        <h1>123Milhas Engine <span style={{fontSize: '14px', color: 'var(--text-slate)'}}>v1.0.7</span></h1>
         <p style={{color: 'var(--text-slate)', marginBottom: '30px'}}>
           Interface Inteligente para Extração e Comparação de Tarifas Aéreas
         </p>
