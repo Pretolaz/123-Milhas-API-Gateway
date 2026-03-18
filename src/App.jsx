@@ -1,4 +1,4 @@
-// 123Milhas Search Frontend - v1.0.4
+// 123Milhas Search Frontend - v1.0.5
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, query, onSnapshot, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
@@ -105,7 +105,7 @@ function App() {
   return (
     <div className="container">
       <header>
-        <h1>123Milhas Engine <span style={{fontSize: '14px', color: 'var(--text-slate)'}}>v1.0.4</span></h1>
+        <h1>123Milhas Engine <span style={{fontSize: '14px', color: 'var(--text-slate)'}}>v1.0.5</span></h1>
         <p style={{color: 'var(--text-slate)', marginBottom: '30px'}}>
           Interface Inteligente para Extração e Comparação de Tarifas Aéreas
         </p>
