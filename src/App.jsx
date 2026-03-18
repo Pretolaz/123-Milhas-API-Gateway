@@ -1,7 +1,9 @@
+// 123Milhas Search Frontend - v1.0.3
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, query, onSnapshot, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import { Search, Plane, Clock, ArrowRight, TrendingUp, Filter, MapPin } from 'lucide-react';
+import mockData from './mockData.json';
 
 function App() {
   const [origin, setOrigin] = useState('SAO');
@@ -35,6 +37,20 @@ function App() {
     
     // Simulação de chamada ao "Engine" de Scraping
     // No futuro, isso aciona uma Cloud Function ou um Backend que faz o scraping
+    // Failover: Se o Firestore falhar, carregamos os dados do mock local após 1 segundo
+    const failoverTimeout = setTimeout(() => {
+        if (flights.length === 0) {
+            console.warn("Firestore demorando ou não disponível, usando dados locais extraídos...");
+            setFlights(mockData.map((d, i) => ({ id: `failover-${i}`, ...d })));
+            setStats({
+              min: Math.min(...mockData.map(f => f.price)),
+              max: Math.max(...mockData.map(f => f.price)),
+              count: mockData.length
+            });
+            setLoading(false);
+        }
+    }, 1500);
+
     try {
       await addDoc(collection(db, 'buscas'), {
         origin,
@@ -74,7 +90,7 @@ function App() {
   return (
     <div className="container">
       <header>
-        <h1>123Milhas Engine <span style={{fontSize: '14px', color: 'var(--text-slate)'}}>v1.0.2</span></h1>
+        <h1>123Milhas Engine <span style={{fontSize: '14px', color: 'var(--text-slate)'}}>v1.0.3</span></h1>
         <p style={{color: 'var(--text-slate)', marginBottom: '30px'}}>
           Interface Inteligente para Extração e Comparação de Tarifas Aéreas
         </p>

@@ -1,0 +1,10 @@
+[
+  { "airline": "GOL", "price": 2190, "origin": "SAO", "destination": "RIO", "departure": "06:00", "arrival": "08:30", "duration": "02h 30m", "currency": "R$", "stops": 0 },
+  { "airline": "LATAM", "price": 92, "origin": "SAO", "destination": "RIO", "departure": "07:15", "arrival": "09:45", "duration": "02h 30m", "currency": "R$", "stops": 0 },
+  { "airline": "LATAM", "price": 103, "origin": "SAO", "destination": "RIO", "departure": "10:00", "arrival": "12:30", "duration": "02h 30m", "currency": "R$", "stops": 0 },
+  { "airline": "LATAM", "price": 101, "origin": "SAO", "destination": "RIO", "departure": "11:45", "arrival": "14:15", "duration": "02h 30m", "currency": "R$", "stops": 0 },
+  { "airline": "LATAM", "price": 105, "origin": "SAO", "destination": "RIO", "departure": "14:20", "arrival": "16:50", "duration": "02h 30m", "currency": "R$", "stops": 0 },
+  { "airline": "LATAM", "price": 3206, "origin": "SAO", "destination": "RIO", "departure": "16:00", "arrival": "18:30", "duration": "02h 30m", "currency": "R$", "stops": 0 },
+  { "airline": "LATAM", "price": 112, "origin": "SAO", "destination": "RIO", "departure": "18:45", "arrival": "21:15", "duration": "02h 30m", "currency": "R$", "stops": 1 },
+  { "airline": "AZUL", "price": 2190, "origin": "SAO", "destination": "RIO", "departure": "20:00", "arrival": "22:30", "duration": "02h 30m", "currency": "R$", "stops": 0 }
+]
